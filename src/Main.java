@@ -17,6 +17,11 @@ void main() {
     IO.println("Do you own a heavy SUV or an electric car? (yes/no): ");
     String answer = x.nextLine();
     answer = answer.toLowerCase();
+    TireEstimator(answer, TireKMMaxAllSeason, TireAgeMaxAllSeason);
+}
+public static void TireEstimator(String answer, double TireKMMaxAllSeason, double TireAgeMaxAllSeason)
+{
+    Scanner x = new Scanner(System.in);
     if(answer.equals("yes"))
     {
         double TireLifeKM = TireKMMaxAllSeason*0.85;
@@ -40,20 +45,18 @@ void main() {
     }
     else if(answer.equals("no"))
     {
-        double TireLifeKM = TireKMMaxAllSeason;
-        double TireAgeYear = TireAgeMaxAllSeason;
         IO.println("How long have you had the tire for? (in years, if 1 year 6 months type 1.5, etc, just type the number): ");
         double reply = x.nextDouble();
         IO.println("How much have you used the tire for (in km): ");
         double Km = x.nextDouble();
-        if(Km>=TireLifeKM || reply>=TireAgeYear)
+        if(Km>=TireKMMaxAllSeason || reply>=TireAgeMaxAllSeason)
         {
             IO.println("Your tire is getting old, you should replace it.");
         }
         else
         {
-            double estimatedLifeKM = TireLifeKM - Km;
-            double estimatedLifeYear = TireAgeYear - reply;
+            double estimatedLifeKM = TireKMMaxAllSeason - Km;
+            double estimatedLifeYear = TireAgeMaxAllSeason - reply;
             IO.println("You can continue using your tire.");
             IO.println("You can use your tire for approximately " + estimatedLifeKM + " kilometers or " + estimatedLifeYear + " years.");
         }
@@ -62,5 +65,4 @@ void main() {
     {
         IO.println("Please enter a valid option.");
     }
-
 }
