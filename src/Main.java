@@ -12,57 +12,46 @@ void main() {
     IO.println("Welcome to Tire Age Estimator");
     IO.println("--------------------------------");
     IO.println();
-    final double TireKMMaxAllSeason = 80000;
-    final double TireAgeMaxAllSeason = 10;
+    final double tireKMMaxAllSeason = 80000;
+    final double tireAgeMaxAllSeason = 10;
     IO.println("Do you own a heavy SUV or an electric car? (yes/no): ");
-    String answer = x.nextLine();
-    answer = answer.toLowerCase();
-    TireEstimator(answer, TireKMMaxAllSeason, TireAgeMaxAllSeason);
-}
-public static void TireEstimator(String answer, double TireKMMaxAllSeason, double TireAgeMaxAllSeason)
-{
-    Scanner x = new Scanner(System.in);
-    if(answer.equals("yes"))
+    String answer = x.nextLine().trim().toLowerCase();
+    if(!answer.isEmpty())
     {
-        double TireLifeKM = TireKMMaxAllSeason*0.85;
-        // EVs and Heavy SUVs on average burn out tires 10 - 20% quicker so 15% is a good middle ground
-        double TireAgeYear = TireAgeMaxAllSeason*0.85;
-        IO.println("How long have you had the tire for? (in years, if 1 year 6 months type 1.5, etc, just type the number): ");
-        double reply = x.nextDouble();
-        IO.println("How much have you used the tire for (in km): ");
-        double Km = x.nextDouble();
-        if(Km>=TireLifeKM || reply>=TireAgeYear)
-        {
-            IO.println("Your tire is getting old, you should replace it.");
-        }
-        else
-        {
-            double estimatedLifeKM = TireLifeKM - Km;
-            double estimatedLifeYear = TireAgeYear - reply;
-            IO.println("You can continue using your tire.");
-            IO.println("You can use your tire for approximately " + estimatedLifeKM + " kilometers or " + estimatedLifeYear + " years.");
-        }
-    }
-    else if(answer.equals("no"))
-    {
-        IO.println("How long have you had the tire for? (in years, if 1 year 6 months type 1.5, etc, just type the number): ");
-        double reply = x.nextDouble();
-        IO.println("How much have you used the tire for (in km): ");
-        double Km = x.nextDouble();
-        if(Km>=TireKMMaxAllSeason || reply>=TireAgeMaxAllSeason)
-        {
-            IO.println("Your tire is getting old, you should replace it.");
-        }
-        else
-        {
-            double estimatedLifeKM = TireKMMaxAllSeason - Km;
-            double estimatedLifeYear = TireAgeMaxAllSeason - reply;
-            IO.println("You can continue using your tire.");
-            IO.println("You can use your tire for approximately " + estimatedLifeKM + " kilometers or " + estimatedLifeYear + " years.");
-        }
+        tireEstimator(answer, tireKMMaxAllSeason, tireAgeMaxAllSeason);
     }
     else
     {
-        IO.println("Please enter a valid option.");
+        IO.println("Please enter something");
     }
 }
+public static void tireEstimator(String answer, double tireKMMaxAllSeason, double tireAgeMaxAllSeason) {
+
+    Scanner x = new Scanner(System.in);
+    double multiplier = 0;
+    if (answer.equals("yes")) {
+        multiplier = 0.85;
+        // EVs and Heavy SUVs on average burn out tires 10 - 20% quicker so 15% is a good middle ground
+    } else if (answer.equals("no")) {
+        multiplier = 1;
+    } else {
+        IO.println("Please print a valid option.");
+    }
+
+    double tireLifeKM = tireKMMaxAllSeason * multiplier;
+    double tireAgeYear = tireAgeMaxAllSeason * multiplier;
+
+    IO.println("How long have you had the tire for? (in years, if 1 year 6 months type 1.5, etc, just type the number): ");
+    double reply = x.nextDouble();
+    IO.println("How much have you used the tire for (in km): ");
+    double km = x.nextDouble();
+    if (km >= tireLifeKM || reply >= tireAgeYear) {
+        IO.println("Your tire is getting old, you should replace it.");
+    } else {
+        double estimatedLifeKM = tireLifeKM - km;
+        double estimatedLifeYear = tireAgeYear - reply;
+        IO.println("You can continue using your tire.");
+        IO.println("You can use your tire for approximately " + estimatedLifeKM + " kilometers or " + estimatedLifeYear + " years.");
+    }
+}
+
